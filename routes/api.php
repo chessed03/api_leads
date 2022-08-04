@@ -28,10 +28,12 @@ Route::post('/login', [AuthController::class, 'login']);
 // Protected routes
 Route::group( ['middleware' => ['auth:sanctum'] ], function () {
 
+    Route::post('/logout', [AuthController::class, 'logout']);
     
     Route::get('/getAllLeads',[LeadsController::class, 'getAllLeads']);
 
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/processDataFile',[LeadsController::class, 'processDataFile']);
+
    
 });
 
