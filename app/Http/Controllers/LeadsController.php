@@ -70,14 +70,16 @@ class LeadsController extends Controller
                 
                 $process_data = Leads::processDataFile( $data_content );
 
-                $str_content  = '';
+                $str_content  = '       email         |   pets   |    cars    |   travel  ';
+
+                $str_content .= "\n";
 
                 foreach($process_data as $key => $text){
                     
-                    $str_content .= 'email: '.$text->email;
-                    $str_content .= ' pets: '.$text->pets;
-                    $str_content .= ' cars: '.$text->cars;
-                    $str_content .= ' travel: '.$text->travel;
+                    $str_content .= $text->email;
+                    $str_content .= '     '.$text->pets;
+                    $str_content .= '           '.$text->cars;
+                    $str_content .= '           '.$text->travel;
 
                     $str_content .= "\n";
 
