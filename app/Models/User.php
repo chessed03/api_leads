@@ -41,4 +41,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function applyCredit( $consume_credit )
+    {
+        
+        $user_email = auth()->user()->email;
+
+        $data_user  = self::where('email', $user_email)->first();
+
+        $data_user->credits = ( $data_user->credits - $consume_credit );
+
+        $data_user->save();
+
+    }
+
+    public function getCredits()
+    {
+        $user_email = auth()->user()->email;
+
+        $data_user  = self::where('email', $user_email)->first();
+
+        return $data_user->credits;
+    }
+
 }

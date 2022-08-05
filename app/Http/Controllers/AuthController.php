@@ -8,7 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 /**
-* @OA\Info(title="API Users", version="1.0")
+* @OA\Info(title="API Leads", version="1.0")
 *
 * @OA\Server(url="http://127.0.0.1:8000")
 */
@@ -51,13 +51,26 @@ class AuthController extends Controller
     *            ),
     *        ),
     *    ),
-    *      @OA\Response(
-    *          response=200,
-    *          description="Register User Successfully",
-    *          @OA\JsonContent()
-    *       ),
     *
-    *      @OA\Response(response=400, description="Bad request"),
+    *      @OA\Response(
+        *          response=201,
+        *          description="Login Successfully",
+        *          @OA\JsonContent()
+        *       ),
+        *      @OA\Response(
+        *          response=200,
+        *          description="Login Successfully",
+        *          @OA\JsonContent()
+        *       ),
+        *      @OA\Response(
+        *          response=422,
+        *          description="Unprocessable Entity",
+        *          @OA\JsonContent()
+        *       ),
+        *      @OA\Response(response=400, description="Bad request"),
+        *      @OA\Response(response=404, description="Resource Not Found"),
+    *
+    *
     * )
     */
 
@@ -87,7 +100,7 @@ class AuthController extends Controller
             'user'  => $user
         ];
 
-        return $this->reponseApi( $response, 201 );
+        return $this->reponseApi( $response, 200 );
 
     }
 
@@ -134,7 +147,7 @@ class AuthController extends Controller
         // Check password
         if( !$user || !Hash::check($fields['password'], $user->password) ) {
             
-            return $this->reponseApi( 'Bad creds', 401 );
+            return $this->reponseApi( 'Bad request', 400 );
 
         }
 
@@ -145,7 +158,7 @@ class AuthController extends Controller
             'token' => $token
         ];
 
-        return $this->reponseApi( $response, 201 );
+        return $this->reponseApi( $response, 200 );
 
     }
 
