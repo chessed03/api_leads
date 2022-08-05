@@ -91,15 +91,10 @@ class LeadsController extends Controller
 
                 $file_path = storage_path() . "/app/public/" . $code_file.'.txt';
 
-                /*$headers = array(
-                    'Content-Type: txt',
-                    'Content-Disposition: attachment; filename='.$code_file.'.txt',
-                );*/
-    
-                //return Response::download( $file_path,  $code_file.'.txt', $headers );
+                $location  = asset('storage/'. $code_file.'.txt');
 
                 $result_process = [
-                    'data'     => $file_path,
+                    'data'    => $location,
                     'credits' => User::getCredits()
                 ];
 
