@@ -23,7 +23,7 @@ use App\Http\Controllers\LeadsController;
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
+Route::any('/downloadFile',[LeadsController::class, 'downloadFile']);
 
 // Protected routes
 Route::group( ['middleware' => ['auth:sanctum'] ], function () {
@@ -34,6 +34,5 @@ Route::group( ['middleware' => ['auth:sanctum'] ], function () {
 
     Route::post('/processDataFile',[LeadsController::class, 'processDataFile']);
 
-   
 });
 
