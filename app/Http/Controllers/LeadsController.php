@@ -89,15 +89,15 @@ class LeadsController extends Controller
 
                 $code_file    = $this->randomNumber();
 
-                Storage::disk('public')->put( $code_file.'.txt', $str_content);
+                $file_created = $code_file.'.txt';
 
-                $file_path = storage_path() . "/app/public/" . $code_file.'.txt';
+                Storage::disk('public')->put( $file_created, $str_content);
 
-                $location  = asset('storage/'. $code_file.'.txt');
+                $file_path = storage_path() . "/app/public/" . $file_created;
 
                 $result_process = [
-                    'data'    => $location,
-                    'credits' => User::getCredits()
+                    'download'  => asset('api/downloadFile?file='. $file_created),
+                    'credits'   => User::getCredits()
                 ];
 
                 return $this->responseApi( $result_process, 200 );
@@ -112,6 +112,15 @@ class LeadsController extends Controller
             return $this->responseApi( 'No credits', 200 );
         }
 
+        
+    }
+
+    function downloadFile(Request $request)
+    {
+       
+        $file_name = $request->file;
+
+        return response()->download(storage_path("app/public/".$file_name));
         
     }
 
